@@ -36,7 +36,6 @@ print("3). I AM GONNA FIND IT")
 def substring(substring, string):
     nr=0
     c=len(substring)
-    print(c)
     for a in range(0, len(string), c):
         if string[a:a+c]==substring:
             nr+=1
@@ -64,7 +63,7 @@ def spiralFusion(matrix):
             print(str(matrix[len(matrix)-b-1][a]), end='')
         counter+=1
     print()
-spiralFusion(["firs", "n_lt", "oba_", "htyp"])
+spiralFusion(["firsc", "n_ltc", "oba_c", "htypc", "lalac"] )
 
 print("6). LOOK FOR TWIN")
 def validatePalindrom(number):
@@ -110,14 +109,15 @@ def commonCharacter(string):
     for a in range(len(string)):
         count=0
         for b in range(a, len(string)):
-            if string[a].lower()==string[b].lower() and string[a]!=" ":
+            
+            if string[a].lower()==string[b].lower() and string[a].isalpha():
                 count+=1
         if(maxim<count):
             maxim=count
             maximw=string[a]
     print(str(maxim)+ " " + str(maximw))
 
-commonCharacter("An apple is not a tomato")
+commonCharacter("An apple22222    is not a tomato")
 
 print("10). ARE YOU REAL")
 def text(string):

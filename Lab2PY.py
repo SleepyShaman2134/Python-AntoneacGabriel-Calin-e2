@@ -68,7 +68,9 @@ print("5). DIAGONAL")
 def diagonal(matrix):
     lengthw=len(matrix[0])
     for a in range(lengthw):
-        matrix[a][a]=0
+        for b in range(lengthw):
+            if b<lengthw-a:
+                matrix[lengthw-b-1][lengthw-a-1]=0
     print(matrix)
 diagonal([[1, 2, 4, 5],[1, 3, 3, 4], [1, 2, 3, 4], [1, 2, 4, 5]])
 
@@ -221,20 +223,20 @@ def tupling(*list_of_lists):
     maxim=0
     for a in list_of_lists:
         n+=1
-        if(maxim<len(list_of_lists)):
-            maxim=len(list_of_lists)
+        if(maxim<len(a)):
+            maxim=len(a)
     for a in list_of_lists:
         if maxim!=len(a):
             while(len(a)<maxim):
                 a.append(None)
-    for a in range(0, len(list_of_lists)):
+    for a in range(0, maxim):
         list1=[]
-        for b in range(0, n):
+        for b in range(0, len(list_of_lists)):
             list1.append(list_of_lists[b][a])
         listfinal.append(tuple(list1))
     print(listfinal)
 
-tupling([1,2,3], [5, 6, 7], ["a", "b", "c"])
+tupling([1, 2, 3, 4, 5], [5, 6, 7], ["a", "b", "c"])
 
 print("11). THE LAST IS THE ONE")
 def last(listp):
@@ -255,14 +257,14 @@ def sing(liststr):
                 newlist.append(liststr[b])
                 finallist.append(newlist)
                 break
-    for a in range(len(liststr)):
+    for a in range(len(finallist)):
         ok=0
         for b in finallist:
-            for c in range(len(b)):
+            for c in range(a, len(b)):
                 if(liststr[a]==b[c]):
                     ok=1
         if(ok!=1):
             finallist.append(liststr[a])
     print(finallist)
 
-sing(['ana', 'banana', 'carte', 'arme', 'parte', 'lupta'])
+sing(['ana', 'banana', 'carte', 'arme', 'parte', 'lupta', 'mana'])
