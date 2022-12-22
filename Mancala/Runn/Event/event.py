@@ -82,89 +82,89 @@ def events(done, boxes, player, turn):
     switch=0
     move=-1
     if turn==1 and player==3:
-            sum=0
-            for box in boxes:
-                for box2 in box:
-                    sum+=box2
-            """The bot's turn"""
-            keep=1
-            wincondition1=1
-            """Player1 doesn't have seeds on it's side of the board"""
-            wincondition2=1
-            """Player2 stole the last points from Player1"""
+        sum=0
+        for box in boxes:
+            for box2 in box:
+                sum+=box2
+        """The bot's turn"""
+        keep=1
+        wincondition1=1
+        """Player1 doesn't have seeds on it's side of the board"""
+        wincondition2=1
+        """Player2 stole the last points from Player1"""
+        for box in range(6):
+            if boxes[1][box+1]!=0:
+                wincondition1=0
+        for box in range(6):
+            if boxes[0][box]!=0:
+                wincondition2=0 
+        if wincondition1==1:
             for box in range(6):
-                if boxes[1][box+1]!=0:
-                    wincondition1=0
+                    boxes[1][0]+=boxes[0][box]
+            turn=4
+            return 4, boxes, player, turn
+        if wincondition2==1:
             for box in range(6):
-                if boxes[0][box]!=0:
-                    wincondition2=0 
-            if wincondition1==1:
-                for box in range(6):
-                        boxes[1][0]+=boxes[0][box]
-                turn=4
-                return 4, boxes, player, turn
-            if wincondition2==1:
-                for box in range(6):
-                        boxes[0][6]+=boxes[1][box+1]
-                turn=4
-                return 4, boxes, player, turn
-            if keep:
-                move=bot.choosemove(boxes)
-                """"Bot makes a move between 1 and 6"""
-                if move==1:
-                    start=0
-                    switch=0
-                    number=boxes[0][0]
-                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
-                    if(empty==1):
-                        switchturn=1
-                        keep=0
-                elif move==2:
-                    start=1
-                    switch=0
-                    number=boxes[0][1]
-                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
-                    if(empty==1):
-                        switchturn=1
-                        keep=0
-                elif move==3:
-                    start=2
-                    switch=0
-                    number=boxes[0][2]
-                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
-                    if(empty==1):
-                        switchturn=1
-                        keep=0
-                elif move==4:
-                    start=3
-                    switch=0
-                    number=boxes[0][3]
-                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
-                    if(empty==1):
-                        switchturn=1
-                        keep=0
-                elif move==5:
-                    start=4
-                    switch=0
-                    number=boxes[0][4]
-                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
-                    if(empty==1):
-                        switchturn=1
-                        keep=0
-                elif move==6:
-                    start=5
-                    switch=0
-                    number=boxes[0][5]
-                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
-                    if(empty==1):
-                        switchturn=1
-                        keep=0
-                if start==0 and part==1:
-                    """Bonus turn if the last piece falls in it's deposit"""
-                    switchturn=0
-                    keep=1
-                if turn==1 and switchturn==1:
-                    turn=0
+                    boxes[0][6]+=boxes[1][box+1]
+            turn=4
+            return 4, boxes, player, turn
+        if keep:
+            move=bot.choosemove(boxes)
+            """"Bot makes a move between 1 and 6"""
+            if move==1:
+                start=0
+                switch=0
+                number=boxes[0][0]
+                empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
+                if(empty==1):
+                    switchturn=1
+                    keep=0
+            elif move==2:
+                start=1
+                switch=0
+                number=boxes[0][1]
+                empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
+                if(empty==1):
+                    switchturn=1
+                    keep=0
+            elif move==3:
+                start=2
+                switch=0
+                number=boxes[0][2]
+                empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
+                if(empty==1):
+                    switchturn=1
+                    keep=0
+            elif move==4:
+                start=3
+                switch=0
+                number=boxes[0][3]
+                empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
+                if(empty==1):
+                    switchturn=1
+                    keep=0
+            elif move==5:
+                start=4
+                switch=0
+                number=boxes[0][4]
+                empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
+                if(empty==1):
+                    switchturn=1
+                    keep=0
+            elif move==6:
+                start=5
+                switch=0
+                number=boxes[0][5]
+                empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
+                if(empty==1):
+                    switchturn=1
+                    keep=0
+            if start==0 and part==1:
+                """Bonus turn if the last piece falls in it's deposit"""
+                switchturn=0
+                keep=1
+            if turn==1 and switchturn==1:
+                turn=0
     for event in pygame.event.get(): 
         """User did something"""
         switchturn=0
