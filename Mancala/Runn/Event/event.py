@@ -20,14 +20,14 @@ def move_pieces(boxes, number, start, switch, player):
         Check if the box is empty
         """
         if boxes[0][start]==0:
-            return 0, start, part
+            return 0, start, part, boxes
         else:
             boxes[0][start]=0
             """"Empty the box"""
     else:
         """The same as line 18"""
         if boxes[1][start]==0:
-            return 0, start, part
+            return 0, start, part, boxes
         else:
             boxes[1][start]=0
     while number>0:
@@ -68,7 +68,7 @@ def move_pieces(boxes, number, start, switch, player):
         boxes[0][6]+=boxes[1][start]+boxes[0][start-1]
         boxes[1][start]=0
         boxes[0][start-1]=0
-    return 1, start, part
+    return 1, start, part, boxes
 
 def events(done, boxes, player, turn):
     """
@@ -81,15 +81,11 @@ def events(done, boxes, player, turn):
     start=0
     switch=0
     move=-1
-    for event in pygame.event.get(): 
-        """User did something"""
-        switchturn=0
-        """variable to check if we change the turn"""
-        part=0
-        if event.type == pygame.QUIT:
-            done = 0
-            """The game stops"""
-        if turn==1 and player==3:
+    if turn==1 and player==3:
+            sum=0
+            for box in boxes:
+                for box2 in box:
+                    sum+=box2
             """The bot's turn"""
             keep=1
             wincondition1=1
@@ -105,10 +101,12 @@ def events(done, boxes, player, turn):
             if wincondition1==1:
                 for box in range(6):
                         boxes[1][0]+=boxes[0][box]
+                turn=4
                 return 4, boxes, player, turn
             if wincondition2==1:
                 for box in range(6):
                         boxes[0][6]+=boxes[1][box+1]
+                turn=4
                 return 4, boxes, player, turn
             if keep:
                 move=bot.choosemove(boxes)
@@ -117,7 +115,7 @@ def events(done, boxes, player, turn):
                     start=0
                     switch=0
                     number=boxes[0][0]
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                         keep=0
@@ -125,7 +123,7 @@ def events(done, boxes, player, turn):
                     start=1
                     switch=0
                     number=boxes[0][1]
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                         keep=0
@@ -133,7 +131,7 @@ def events(done, boxes, player, turn):
                     start=2
                     switch=0
                     number=boxes[0][2]
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                         keep=0
@@ -141,7 +139,7 @@ def events(done, boxes, player, turn):
                     start=3
                     switch=0
                     number=boxes[0][3]
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                         keep=0
@@ -149,7 +147,7 @@ def events(done, boxes, player, turn):
                     start=4
                     switch=0
                     number=boxes[0][4]
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                         keep=0
@@ -157,7 +155,7 @@ def events(done, boxes, player, turn):
                     start=5
                     switch=0
                     number=boxes[0][5]
-                    empty, start, part=move_pieces(boxes, move, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                         keep=0
@@ -167,7 +165,15 @@ def events(done, boxes, player, turn):
                     keep=1
                 if turn==1 and switchturn==1:
                     turn=0
-        if player==2 and player!=3 and turn==1:
+    for event in pygame.event.get(): 
+        """User did something"""
+        switchturn=0
+        """variable to check if we change the turn"""
+        part=0
+        if event.type == pygame.QUIT:
+            done = 0
+            """The game stops"""
+        if player==2 and turn==1:
             wincondition1=1
             wincondition2=1
             for box in range(6):
@@ -179,10 +185,12 @@ def events(done, boxes, player, turn):
             if wincondition1==1:
                 for box in range(6):
                     boxes[1][0]+=boxes[0][box]
+                turn=4
                 return 4, boxes, player, turn
             if wincondition2==1:
                 for box in range(6):
                         boxes[0][6]+=boxes[1][box+1]
+                turn=4
                 return 4, boxes, player, turn
             if event.type==pygame.KEYDOWN:
                 number=0
@@ -190,42 +198,42 @@ def events(done, boxes, player, turn):
                     number=boxes[0][0]
                     start=0
                     switch=0
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_2:
                     number=boxes[0][1]
                     start=1
                     switch=0
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_3:
                     number=boxes[0][2]
                     start=2
                     switch=0
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_4:
                     number=boxes[0][3]
                     start=3
                     switch=0
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_5:
                     number=boxes[0][4]
                     start=4
                     switch=0
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_6:
                     number=boxes[0][5]
                     start=5
                     switch=0
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 if start==0 and part==1:
@@ -245,10 +253,12 @@ def events(done, boxes, player, turn):
             if wincondition1==1:
                 for box in range(6):
                         boxes[0][6]+=boxes[1][box+1]
+                turn=4
                 return 4, boxes, player, turn
             if wincondition2==1:
                 for box in range(6):
                         boxes[1][0]+=boxes[0][box]
+                turn=4
                 return 4, boxes, player, turn
             if event.type==pygame.KEYDOWN:
                 number=0
@@ -256,42 +266,42 @@ def events(done, boxes, player, turn):
                     number=boxes[1][1]
                     start=1
                     switch=1
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_2:
                     number=boxes[1][2]
                     start=2
                     switch=1
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_3:
                     number=boxes[1][3]
                     start=3
                     switch=1
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_4:
                     number=boxes[1][4]
                     start=4
                     switch=1
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_5:
                     number=boxes[1][5]
                     start=5
                     switch=1
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 elif event.key==pygame.K_6:
                     number=boxes[1][6]
                     start=6
                     switch=1
-                    empty, start, part=move_pieces(boxes, number, start, switch, player)
+                    empty, start, part, boxes=move_pieces(boxes, number, start, switch, player)
                     if(empty==1):
                         switchturn=1
                 if start==6 and part==0:
