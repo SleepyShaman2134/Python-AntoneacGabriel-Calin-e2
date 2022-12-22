@@ -69,9 +69,9 @@ def drawWinner(boxes):
     screen.fill((255, 255, 255)) 
     font = pygame.font.Font('freesansbold.ttf', 32)
     if boxes[0][6]>boxes[1][0]:
-        text = font.render('Player 2 wins!', True, (0, 0, 0))
-    elif boxes[0][6]<boxes[1][0]:
         text = font.render('Player 1 wins!', True, (0, 0, 0))
+    elif boxes[0][6]<boxes[1][0]:
+        text = font.render('Player 2 wins!', True, (0, 0, 0))
     else:
         text = font.render('Draw!', True, (0, 0, 0))
     textRect = text.get_rect()
