@@ -11,6 +11,5 @@ def choosemove(boxes):
         move=listmoves[0]
     else:
         move=random.choice(listmoves)
-    print(move, listmoves)
     listmoves.clear()
     return move
