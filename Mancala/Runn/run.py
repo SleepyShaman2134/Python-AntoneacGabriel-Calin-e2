@@ -17,7 +17,7 @@ elif str(sys.argv[1])=='player':
 else:
     print("YOU HAVEN'T SPECIFIED A CORRECT ARGUMENT")
 pygame.init()
-pygame.display.set_caption('MANCALA')   
+pygame.display.set_caption('MANCALA')
 # done variable is using as flag     
 done = 1   
 while done:
